@@ -1,6 +1,6 @@
 # 配置MySQL数据库的连接参数
 spring.datasource:
-   url: jdbc:mysql://127.0.0.1:3306/wx_sb?useSSL=false&serverTimezone=CST
+   url: jdbc:mysql://127.0.0.1:3306/wx_sb?useSSL=false&serverTimezone=CST&allowPublicKeyRetrieval=true
    username: lsb
    password: 1234
 
