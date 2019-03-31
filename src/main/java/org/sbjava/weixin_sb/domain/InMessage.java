@@ -1,5 +1,7 @@
 package org.sbjava.weixin_sb.domain;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -9,12 +11,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlAccessorType(XmlAccessType.FIELD)//JAXB从字段获取配置信息
 @XmlRootElement(name = "xml")//JAXB读取xml时根元素名称
-public abstract class InMessage {
+public abstract class InMessage implements Serializable {
 	
 	//由于微信发送给我们的消息字段是首字母大写的，而java字段字母大写不符合javaBean的规范
 	//如果使用JAXB，需要使用@XmlElement注解指定xml里面元素的名称和java字段之间的关系
 	//如果使用jackson，则需要使用@JsonProperty注解指点java字段序列化和反序列化字段名称的映射
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@XmlElement(name ="ToUserName")
 	@JsonProperty("ToUserName")
 	private String toUserName;
