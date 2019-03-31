@@ -1,5 +1,11 @@
 package org.sbjava.weixin_sb.controller;
 
+import java.io.StringReader;
+
+import javax.xml.bind.JAXB;
+
+import org.sbjava.weixin_sb.domain.InMessage;
+import org.sbjava.weixin_sb.service.MessageTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,12 +54,21 @@ public class MessageReceiverController {
 			@RequestParam("nonce") String nonce, //
 			@RequestBody String xml) {
 		//接收消息
-		LOG.trace("接收的消息原文：\n{}\n----------------------------",xml);
-		//转换消息
-		//把消息丢入队列
-		//消费队列中的消息
-		//产生客服消息
+		LOG.debug("接收用户发送给公众号的信息：\n-------------------\n"
+				+"{}\n----------------------------\n",xml);
 		
+		
+		
+		//截取消息类型
+		String type = xml.substring(0);
+		Class<InMessage> cla = MessageTypeMapper.getClass(type);
+		
+		//使用JAXB完成XML转换为java对象的操作 
+		InMessage inMessage = JAXB.unmarshal(new StringReader(xml), cla);
+		
+		LOG.debug("转换得到的消息对象 \n{}\n", inMessage.toString());
+		
+		//由于后面会把消息放入队列中，所以这里直接返回success。
 		return "success";
 	}
 }
