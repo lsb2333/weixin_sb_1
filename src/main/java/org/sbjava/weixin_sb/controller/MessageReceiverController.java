@@ -102,7 +102,9 @@ public class MessageReceiverController {
 				ObjectOutputStream oos = new ObjectOutputStream(out);
 				oos.writeObject(inMessage);
 				
-				connection.publish(channel.getBytes(),out.toByteArray());
+				Long l = connection.publish(channel.getBytes(),out.toByteArray());
+				
+				System.out.println("发布结果：" + l);
 				}catch (Exception e) {
 					LOG.error("把消息放入队列时出现问题" + e.getLocalizedMessage(),e);
 				}
