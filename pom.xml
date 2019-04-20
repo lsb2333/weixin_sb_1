@@ -102,6 +102,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 可以打包一个可执行的jar文件 -->
+					<executable>true</executable>
+					<!-- fork为true的时候 -->
+					<!-- 将可以使用mvn spring-boot:star 启动程序 -->
+					<!-- 并且可以使用mvn spring-boot:stop 停止程序 -->
+					<fork>true</fork>
+					<!-- 每个fork出来的进程都会需要一个JMX端口，不能重复 -->
+					<jmxPort>9304</jmxPort>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
